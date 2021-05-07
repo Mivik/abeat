@@ -1,2 +1,2 @@
 
-add_library(stb_image SHARED stb_image.cpp)
+add_library(stb_image STATIC stb_image.cpp)
