@@ -58,7 +58,7 @@ PAInput::PAInput(const Config &config):
 			pa_threaded_mainloop_wait(mainloop);
 		pa_operation_unref(operation);
 
-		stream_output = alloc_zero<float>(buffer.get_size());
+		stream_output = alloc_filled<float>(buffer.get_size(), config.initial_value);
 	}
 	start();
 }

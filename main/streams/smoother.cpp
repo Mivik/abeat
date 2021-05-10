@@ -11,8 +11,8 @@ Smoother::Smoother(const Config &config):
 	size(stream_input->get_output_size()),
 	scale(config.scale) {
 	if (scale < 0 || scale > 1) throw std::invalid_argument("Scale should be a real number in [0, 1]");
-	output[0] = alloc_zero<float>(size);
-	output[1] = alloc_zero<float>(size);
+	output[0] = alloc_filled<float>(size, config.initial_value);
+	output[1] = alloc_filled<float>(size, config.initial_value);
 }
 
 Smoother::~Smoother() {

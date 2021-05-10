@@ -10,7 +10,7 @@ Pow::Pow(const Config &config)
 	  stream_input(config.input),
 	  size(stream_input->get_output_size()),
 	  power(config.power),
-	  output(alloc_zero<float>(size)) {}
+	  output(alloc_filled<float>(size, config.initial_value)) {}
 
 Pow::~Pow() {
 	delete[] output;

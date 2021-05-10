@@ -15,7 +15,7 @@ Spectrum::Spectrum(const Config &config):
 	offset = (float) config.freq.min / density;
 	output_size =
 		std::min((size_t) std::ceil((float) config.freq.max / density) + 1, input_size) - offset;
-	output = alloc_zero<float>(output_size);
+	output = alloc_filled<float>(output_size, config.initial_value);
 }
 
 Spectrum::~Spectrum() {

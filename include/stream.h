@@ -7,13 +7,15 @@
 #include "common.h"
 #include "object.h"
 
-#define STREAM_BUILDER
+#define STREAM_BUILDER \
+	BUILDER_OPT(initial_value)
 
 namespace abeat {
 
 class Stream : public Object {
 public:
 	struct Config : public Object::Config {
+		float initial_value = 0;
 	};
 
 	Stream(const Stream &) = delete;

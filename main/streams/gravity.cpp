@@ -8,8 +8,8 @@ Gravity::Gravity(const Config &config):
 	stream_input(config.input),
 	size(stream_input->get_output_size()),
 	gravity(config.gravity),
-	output(alloc_zero<float>(size)),
-	times(alloc_zero<float>(size)) {
+	output(alloc_filled<float>(size, config.initial_value)),
+	times(alloc_filled<float>(size, config.initial_value)) {
 	if (gravity < 0) throw std::invalid_argument("Gravity should be positive");
 }
 

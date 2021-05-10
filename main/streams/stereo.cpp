@@ -8,7 +8,7 @@ Stereo::Stereo(const Config &config):
 	stream_input(dynamic_cast<PAInput *>(config.input)),
 	input_size(stream_input->get_output_size()),
 	channel(config.channel),
-	output(alloc_zero<float>(stream_input->get_output_size() / 2)) {
+	output(alloc_filled<float>(stream_input->get_output_size() / 2, config.initial_value)) {
 	if (!stream_input) throw std::invalid_argument("Input of a stereo should be an audio stream");
 }
 

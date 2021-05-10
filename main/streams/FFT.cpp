@@ -27,7 +27,7 @@ FFT::FFT(const Config &config):
 	input = fftwf_alloc_real(size);
 	output = fftwf_alloc_complex(size / 2 + 1);
 	plan = fftwf_plan_dft_r2c_1d(size, input, output, FFTW_ESTIMATE);
-	stream_output = alloc_zero<float>(size);
+	stream_output = alloc_filled<float>(size, config.initial_value);
 	const auto ws = get_window_size();
 	window = new float[ws];
 	window_func(window, ws);

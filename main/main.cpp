@@ -25,25 +25,28 @@ inline void mainloop(GLFWwindow *window) {
 	auto &ctx = *ctx_ptr;
 
 	{
-		auto input = stream::PAInput::Builder(ctx)
+		using namespace stream;
+		using namespace widget;
+		auto input = PAInput::Builder(ctx)
 			.build();
-		auto fft = stream::FFT::Builder(ctx)
+		auto fft = FFT::Builder(ctx)
 			.input(input)
 			.size(2048)
 			.build();
-		auto spec = stream::Spectrum::Builder(ctx)
+		auto spec = Spectrum::Builder(ctx)
 			.input(fft)
 			.freq({ 0, 1500 })
+			.initial_value(-80)
 			.build();
-		auto window = stream::Window::Builder(ctx)
+		auto window = Window::Builder(ctx)
 			.input(spec)
 			.from_range({ -80, 0 })
 			.to_range({ 0, 1 })
 			.build();
-		auto grav = stream::Gravity::Builder(ctx)
+		auto grav = Gravity::Builder(ctx)
 			.input(window)
 			.build();
-		auto bars = widget::Bars::Builder(ctx)
+		auto bars = Bars::Builder(ctx)
 			.input(grav)
 			.build();
 	}
@@ -74,7 +77,8 @@ inline void mainloop(GLFWwindow *window) {
 }
 
 int main(int argc, char *argv[]) {
-	ctx_ptr = std::make_unique<abeat::Context>();
+	conf.window.width = 70;
+	conf.window.height = 70;
 
 	if (!glfwInit()) {
 		std::cerr << "Failed to initialize glfw" << std::endl;
@@ -105,7 +109,9 @@ int main(int argc, char *argv[]) {
 	});
 	if (conf.window.draggable) abeat::WindowDragger::initialize(window);
 
+	ctx_ptr = std::make_unique<abeat::Context>();
 	mainloop(window);
+	ctx_ptr.reset();
 	glfwTerminate();
 	return 0;
 }

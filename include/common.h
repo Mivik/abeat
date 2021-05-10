@@ -21,9 +21,9 @@ inline std::optional<V> try_get(const std::map<K, V> &mp, const K &key) {
 }
 
 template<class V, class = std::enable_if_t<std::is_arithmetic_v<V>>>
-inline V *alloc_zero(size_t size) {
+inline V *alloc_filled(size_t size, V value) {
 	V *ret = new V[size];
-	std::fill(ret, ret + size, 0);
+	std::fill(ret, ret + size, value);
 	return ret;
 }
 

@@ -10,7 +10,7 @@ Window::Window(Config config)
 	  config(config),
 	  stream_input(this->config.input),
 	  size(stream_input->get_output_size()),
-	  output(alloc_zero<float>(size)) {}
+	  output(alloc_filled<float>(size, config.initial_value)) {}
 
 Window::~Window() {
 	delete[] output;
