@@ -98,6 +98,7 @@ int main(int argc, char *argv[]) {
 	glfwMakeContextCurrent(window);
 	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
 		std::cerr << "Failed to initialize GLAD" << std::endl;
+		glfwTerminate();
 		return -1;
 	}
 	if (conf.render.MSAA)
