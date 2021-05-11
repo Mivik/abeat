@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <map>
 #include <memory>
 #include <optional>
@@ -20,11 +21,27 @@ inline std::optional<V> try_get(const std::map<K, V> &mp, const K &key) {
 	return it->second;
 }
 
-template<class V, class = std::enable_if_t<std::is_arithmetic_v<V>>>
+template<class V>
 inline V *alloc_filled(size_t size, V value) {
+	static_assert(std::is_arithmetic_v<V>);
 	V *ret = new V[size];
 	std::fill(ret, ret + size, value);
 	return ret;
+}
+
+template<class V>
+struct Range {
+	V from, to;
+
+	inline V min() const { return std::min(from, to); }
+	inline V max() const { return std::max(from, to); }
+	inline V length() const { return to - from; }
+};
+
+template<class V>
+inline V map_range(V val, const Range<V> &from, const Range<V> &to) {
+	val = std::clamp(val, from.min(), from.max());
+	return to.from + (val - from.from) / from.length() * to.length();
 }
 
 template<class T, class F>

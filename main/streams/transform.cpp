@@ -1,26 +1,26 @@
 
 #include <cmath>
 
-#include "streams/pow.h"
+#include "streams/transform.h"
 
 namespace abeat::stream {
 
-Pow::Pow(const Config &config)
+Transform::Transform(const Config &config)
 	: Stream(config),
 	  stream_input(config.input),
 	  size(stream_input->get_output_size()),
-	  power(config.power),
+	  function(config.function),
 	  output(alloc_filled<float>(size, config.initial_value)) {}
 
-Pow::~Pow() {
+Transform::~Transform() {
 	delete[] output;
 }
 
-void Pow::update(float dt) {
+void Transform::update(float dt) {
 	Stream::update(dt);
 
 	auto *input = stream_input->get_output();
-	for (size_t i = size - 1; ~i; --i) output[i] = std::pow(input[i], power);
+	for (size_t i = size - 1; ~i; --i) output[i] = function(input[i]);
 }
 
 } // namespace abeat::stream

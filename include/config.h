@@ -45,13 +45,6 @@ private: \
 
 namespace abeat {
 
-template<class T>
-struct Range {
-	T min, max;
-
-	inline T length() const { return max - min; }
-};
-
 namespace config {
 
 struct Window {

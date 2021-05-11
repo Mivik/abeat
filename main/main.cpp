@@ -38,10 +38,11 @@ inline void mainloop(GLFWwindow *window) {
 			.freq({ 0, 1500 })
 			.initial_value(-80)
 			.build();
-		auto window = Window::Builder(ctx)
+		auto window = Transform::Builder(ctx)
 			.input(spec)
-			.from_range({ -80, 0 })
-			.to_range({ 0, 1 })
+			.function([](float x) {
+				return map_range(x, { -80, 0 }, { 0, 1 });
+			})
 			.build();
 		auto grav = Gravity::Builder(ctx)
 			.input(window)

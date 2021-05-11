@@ -15,12 +15,11 @@ add_executable(
 
 		streams/FFT.cpp
 		streams/gravity.cpp
-		streams/pow.cpp
 		streams/pulse_audio.cpp
 		streams/smoother.cpp
 		streams/spectrum.cpp
 		streams/stereo.cpp
-		streams/window.cpp
+		streams/transform.cpp
 
 		widgets/bars.cpp
 		widgets/curve.cpp

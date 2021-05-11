@@ -12,9 +12,9 @@ Spectrum::Spectrum(const Config &config):
 		throw std::invalid_argument("Input stream is not a FFT");
 	const auto input_size = stream_input->get_output_size();
 	const float density = (float) stream_input->get_sampling_rate() / input_size / 2;
-	offset = (float) config.freq.min / density;
+	offset = (float) config.freq.from / density;
 	output_size =
-		std::min((size_t) std::ceil((float) config.freq.max / density) + 1, input_size) - offset;
+		std::min((size_t) std::ceil((float) config.freq.to / density) + 1, input_size) - offset;
 	output = alloc_filled<float>(output_size, config.initial_value);
 }
 

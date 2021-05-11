@@ -1,22 +1,24 @@
 
 #pragma once
 
+#include <functional>
+
 #include "stream.h"
 
 namespace abeat::stream {
 
-class Window : public Stream {
+class Transform : public Stream {
 public:
 	struct Config : public Stream::Config {
 		Stream *input;
-		Range<float> from_range, to_range = { 0, 1 };
+		std::function<float(float)> function;
 	};
 
 	class Builder;
 
-	explicit Window(Config config);
-	Window(const Window &) = delete;
-	~Window() override;
+	explicit Transform(const Config &config);
+	Transform(const Transform &) = delete;
+	~Transform() override;
 
 	void update(float dt) override;
 
@@ -24,19 +26,18 @@ public:
 	[[nodiscard]] inline size_t get_output_size() const override { return size; }
 
 private:
-	Config config;
 	Stream *stream_input;
 	size_t size;
 	float *output;
+	std::function<float(float)> function;
 };
 
-class Window::Builder {
-BUILDER_BEGIN(Window)
+class Transform::Builder {
+BUILDER_BEGIN(Transform)
 	STREAM_BUILDER
 	BUILDER_ARG(input)
 
-	BUILDER_OPT(from_range)
-	BUILDER_OPT(to_range)
+	BUILDER_OPT(function)
 BUILDER_END(f_input)
 	bool f_input = false;
 };
