@@ -1,30 +1,9 @@
 
-add_executable(
-		abeat
+FILE(GLOB_RECURSE ABEAT_MAIN_SOURCE_FILES *.cpp)
 
-		animation.cpp
-		context.cpp
-		fps_printer.cpp
-		main.cpp
-		mgl.cpp
-		object.cpp
-		stream.cpp
-		transform.cpp
-		widget.cpp
-		window_dragger.cpp
+message(ERROR ${ABEAT_MAIN_SOURCE_FILES})
 
-		streams/FFT.cpp
-		streams/gravity.cpp
-		streams/pulse_audio.cpp
-		streams/smoother.cpp
-		streams/spectrum.cpp
-		streams/stereo.cpp
-		streams/transform.cpp
-
-		widgets/bars.cpp
-		widgets/curve.cpp
-		widgets/image.cpp
-)
+add_executable(abeat ${ABEAT_MAIN_SOURCE_FILES})
 
 target_link_libraries(
 		abeat

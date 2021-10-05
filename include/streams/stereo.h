@@ -22,7 +22,7 @@ public:
 
 	[[nodiscard]] inline const float *get_output() const override { return output; }
 	[[nodiscard]] inline size_t get_output_size() const override { return input_size / 2; }
-	[[nodiscard]] inline float get_sampling_rate() const { return stream_input->get_config().sampling_rate; }
+	[[nodiscard]] inline uint32_t get_sampling_rate() const { return stream_input->get_config().sampling_rate; }
 
 private:
 	PAInput *stream_input;

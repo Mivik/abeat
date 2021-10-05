@@ -11,6 +11,8 @@
 
 namespace abeat {
 
+#define ANIMATION_BUILDER
+
 class Animation : public Object {
 public:
 	struct Config : public Object::Config {
